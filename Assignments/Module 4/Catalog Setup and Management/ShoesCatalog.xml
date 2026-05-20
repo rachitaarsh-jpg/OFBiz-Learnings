@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-engine-xml>
+    <!-- Catalog -->
+    <ProdCatalog prodCatalogId="XML_SHOES_CATALOG" catalogName="XML Shoes Catalog"/>
+
+    <!-- Categories -->
+    <ProductCategory productCategoryId="XML_SHOES_ROOT" productCategoryTypeId="CATALOG_CATEGORY" categoryName="Browse Root (XML)"/>
+    <ProductCategory productCategoryId="XML_SHOES_MEN" productCategoryTypeId="CATALOG_CATEGORY" categoryName="Men (XML)"/>
+    <ProductCategory productCategoryId="XML_SHOES_MSPORTS" productCategoryTypeId="CATALOG_CATEGORY" categoryName="MSports (XML)"/>
+    <ProductCategory productCategoryId="XML_PROMO_CAT" productCategoryTypeId="CATALOG_CATEGORY" categoryName="Promotion (XML)"/>
+
+    <!-- Category Rollups -->
+    <ProductCategoryRollup productCategoryId="XML_SHOES_MEN" parentProductCategoryId="XML_SHOES_ROOT" fromDate="2026-01-01 00:00:00.0"/>
+    <ProductCategoryRollup productCategoryId="XML_SHOES_MSPORTS" parentProductCategoryId="XML_SHOES_MEN" fromDate="2026-01-01 00:00:00.0"/>
+    <ProductCategoryRollup productCategoryId="XML_PROMO_CAT" parentProductCategoryId="XML_SHOES_ROOT" fromDate="2026-01-01 00:00:00.0"/>
+
+    <!-- Catalog Category Link -->
+    <ProdCatalogCategory prodCatalogId="XML_SHOES_CATALOG" productCategoryId="XML_SHOES_ROOT" prodCatalogCategoryTypeId="PCCT_BROWSE_ROOT" fromDate="2026-01-01 00:00:00.0"/>
+    <ProdCatalogCategory prodCatalogId="XML_SHOES_CATALOG" productCategoryId="XML_PROMO_CAT" prodCatalogCategoryTypeId="PCCT_PROMOTIONS" fromDate="2026-01-01 00:00:00.0"/>
+
+    <!-- Features -->
+    <ProductFeatureCategory productFeatureCategoryId="XML_SHOE_SIZE" description="Shoe Size (XML)"/>
+    <ProductFeatureCategory productFeatureCategoryId="XML_SHOE_COLOR" description="Shoe Color (XML)"/>
+
+    <ProductFeature productFeatureId="XML_SIZE_12" productFeatureTypeId="SIZE" productFeatureCategoryId="XML_SHOE_SIZE" description="Size 12"/>
+    <ProductFeature productFeatureId="XML_SIZE_13" productFeatureTypeId="SIZE" productFeatureCategoryId="XML_SHOE_SIZE" description="Size 13"/>
+    <ProductFeature productFeatureId="XML_COLOR_ORG" productFeatureTypeId="COLOR" productFeatureCategoryId="XML_SHOE_COLOR" description="Orange"/>
+
+    <!-- Virtual Product MS-3 -->
+    <Product productId="MS-3" productTypeId="GOOD" isVirtual="Y" isVariant="N" internalName="MS-3 Virtual Product"/>
+    <ProductCategoryMember productCategoryId="XML_SHOES_MSPORTS" productId="MS-3" fromDate="2026-01-01 00:00:00.0"/>
+    <ProductCategoryMember productCategoryId="XML_PROMO_CAT" productId="MS-3" fromDate="2026-01-01 00:00:00.0"/>
+
+    <!-- Apply Features to Virtual Product (SELECTABLE) -->
+    <ProductFeatureAppl productId="MS-3" productFeatureId="XML_SIZE_12" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2026-01-01 00:00:00.0"/>
+    <ProductFeatureAppl productId="MS-3" productFeatureId="XML_SIZE_13" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2026-01-01 00:00:00.0"/>
+    <ProductFeatureAppl productId="MS-3" productFeatureId="XML_COLOR_ORG" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2026-01-01 00:00:00.0"/>
+
+    <!-- Variant Product: MS-3-ORANGE-12 -->
+    <Product productId="MS-3-ORANGE-12" productTypeId="GOOD" isVirtual="N" isVariant="Y" internalName="MS-3 Variant Orange 12"/>
+    <ProductAssoc productId="MS-3" productIdTo="MS-3-ORANGE-12" productAssocTypeId="PRODUCT_VARIANT" fromDate="2026-01-01 00:00:00.0"/>
+    <ProductFeatureAppl productId="MS-3-ORANGE-12" productFeatureId="XML_SIZE_12" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2026-01-01 00:00:00.0"/>
+    <ProductFeatureAppl productId="MS-3-ORANGE-12" productFeatureId="XML_COLOR_ORG" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2026-01-01 00:00:00.0"/>
+
+    <!-- Variant Product: MS-3-ORANGE-13 -->
+    <Product productId="MS-3-ORANGE-13" productTypeId="GOOD" isVirtual="N" isVariant="Y" internalName="MS-3 Variant Orange 13"/>
+    <ProductAssoc productId="MS-3" productIdTo="MS-3-ORANGE-13" productAssocTypeId="PRODUCT_VARIANT" fromDate="2026-01-01 00:00:00.0"/>
+    <ProductFeatureAppl productId="MS-3-ORANGE-13" productFeatureId="XML_SIZE_13" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2026-01-01 00:00:00.0"/>
+    <ProductFeatureAppl productId="MS-3-ORANGE-13" productFeatureId="XML_COLOR_ORG" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2026-01-01 00:00:00.0"/>
+
+    <!-- Promotion -->
+    <ProductPromo productPromoId="XML_SHOES_PROMO" promoName="XML Shoes Promotion" userEntered="Y"/>
+    <ProductPromoRule productPromoId="XML_SHOES_PROMO" productPromoRuleId="01" ruleName="Promo Rule 1"/>
+    <ProductPromoCond productPromoId="XML_SHOES_PROMO" productPromoRuleId="01" productPromoCondSeqId="01" inputParamEnumId="PPIP_PRODUCT_QUANT" operatorEnumId="PPC_EQ" condValue="1"/>
+    <ProductPromoAction productPromoId="XML_SHOES_PROMO" productPromoRuleId="01" productPromoActionSeqId="01" productPromoActionEnumId="PROMO_PROD_DISC" amount="10"/>
+    
+    <!-- Link Promotion to Category containing MS-3 -->
+    <ProductPromoCategory productPromoId="XML_SHOES_PROMO" productPromoRuleId="01" productPromoActionSeqId="01" productPromoCondSeqId="_NA_" productCategoryId="XML_PROMO_CAT" andGroupId="_NA_" productPromoApplEnumId="PPPA_INCLUDE"/>
+</entity-engine-xml>
