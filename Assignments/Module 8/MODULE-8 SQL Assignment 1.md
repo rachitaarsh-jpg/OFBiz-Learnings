@@ -12,18 +12,33 @@ SELECT
     p.PARTY_ID,
     p.FIRST_NAME,
     p.LAST_NAME,
-    cm.INFO_STRING,
-    tn.CONTACT_NUMBER,
+    MAX(cm_email.INFO_STRING) AS EMAIL,
+    MAX(tn.CONTACT_NUMBER) AS PHONE,
     p.CREATED_STAMP AS ENTRY_DATE
+    
 FROM person p
-JOIN party_contact_mech pcm
-    ON p.PARTY_ID = pcm.PARTY_ID
-JOIN contact_mech cm
-    ON pcm.CONTACT_MECH_ID = cm.CONTACT_MECH_ID
-JOIN telecom_number tn
-    ON cm.CONTACT_MECH_ID = tn.CONTACT_MECH_ID
-WHERE DATE(p.CREATED_STAMP) > '2023-05-31'
-  AND DATE(p.CREATED_STAMP) < '2023-07-01';
+
+LEFT JOIN party_contact_mech pcm_email
+    ON p.PARTY_ID = pcm_email.PARTY_ID 
+LEFT JOIN contact_mech cm_email
+    ON pcm_email.CONTACT_MECH_ID = cm_email.CONTACT_MECH_ID
+    AND cm_email.CONTACT_MECH_TYPE_ID='EMAIL_ADDRESS'
+    
+LEFT JOIN party_contact_mech pcm_tn
+    ON p.PARTY_ID = pcm_tn.PARTY_ID
+LEFT JOIN contact_mech cm_tele 
+    ON pcm_tn.CONTACT_MECH_ID = cm_tele.CONTACT_MECH_ID
+    AND cm_tele.CONTACT_MECH_TYPE_ID='TELECOM_NUMBER'
+LEFT JOIN telecom_number tn 
+    ON cm_tele.CONTACT_MECH_ID = tn.CONTACT_MECH_ID
+    
+WHERE DATE(p.CREATED_STAMP) > '2026-05-31'
+  AND DATE(p.CREATED_STAMP) < '2026-07-01'
+  
+  GROUP BY  p.PARTY_ID,
+            p.FIRST_NAME,
+            p.LAST_NAME,
+            p.CREATED_STAMP;
 ```
 
 ---
