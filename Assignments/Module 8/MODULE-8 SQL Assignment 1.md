@@ -50,13 +50,16 @@ Merchandising teams often need a list of all physical products to manage logisti
 
 ```sql
 SELECT
-    p.PRODUCT_ID,
-    p.PRODUCT_TYPE_ID,
-    p.INTERNAL_NAME
-FROM product p
-JOIN product_type pt
-    ON p.PRODUCT_TYPE_ID = pt.PRODUCT_TYPE_ID
-WHERE pt.IS_PHYSICAL = 'Y';
+
+    PRODUCT_ID,
+    PRODUCT_TYPE_ID,
+    INTERNAL_NAME,
+  
+FROM product 
+
+WHERE IS_VARIANT = 'Y' AND IS_VIRTUAL = 'N'
+AND PRODUCT_TYPE_ID = 'FINISHED_GOOD'
+AND SALES_DISCONTINUATION_DATE > CURDATE();
 ```
 
 ---
